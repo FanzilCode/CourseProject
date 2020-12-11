@@ -7,14 +7,13 @@ namespace CourseProject
         static void Main(string[] args)
         {
             List<Product> products = new List<Product>();
-
+            // TODO: добавить товары через консоль(как администратор)/базу данных
             products.Add(new Product("Банан", 25.5, "шт"));
 
             products.Add(new Product("Груша", 15.5, "шт"));
 
             products.Add(new Product("Апельсин", 55.99, "шт"));
-
-            products.Add(new Product("Водка", 400, "шт"));
+            products.Add(new Product("Водка", 400, "л"));
 
             Client(products);
         }
@@ -45,21 +44,13 @@ namespace CourseProject
                 "6) Купить все товары в корзине\n");
                 int choise = Convert.ToInt32(Console.ReadLine());
                 switch (choise)
-
                 {
-
                     case 1:
-
                         {
-
                             foreach (var p in products)
-
                             {
-
                                 Console.WriteLine(p);
-
                             }
-
                             break;
 
                         }

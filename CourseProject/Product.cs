@@ -29,7 +29,7 @@ namespace CourseProject
         public override string ToString()
         {
             return $"Название товара: {name}\n" +
-                $"Цена товара: {cost}\n" +
+                $"Цена товара: {cost} рублей\n" +
                 $"Единица измерения: {measure}\n";
         }
     }
