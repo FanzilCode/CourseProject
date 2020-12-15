@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CourseProject
+﻿namespace CourseProject
 {
-    class Product
+    class Product : IAlcohol
     {
         public string name { get; set; }
         public double cost { get; set; }
         public string measure { get; set; }
-
         double count; // количество товара, которое есть на складе
 
         public double Count
@@ -21,9 +16,9 @@ namespace CourseProject
         }
 
 
-        public Product(string name, double cost, string measure)
+        public Product(string name, double cost, string measure, double count = 100)
         {
-            this.name = name; this.cost = cost; this.measure = measure;
+            this.name = name; this.cost = cost; this.measure = measure; this.count = count;
         }
 
         public override string ToString()

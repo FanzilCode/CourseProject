@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CourseProject
 {
     class Sale
     {
-        public Product product { get; set; }
+        public IAlcohol product { get; set; }
         public Client client { get; set; }
         public double count { get; set; }
 
-        DateTime saleDate;
-        DateTime deliveryDate;
+        public DateTime saleDate { get; set; }
+        public DateTime deliveryDate { get; set; }
 
-        public Sale(Product product, Client client, double count)
+        public Sale(IAlcohol product, Client client, double count)
         {
             this.product = product; this.client = client; this.count = count;
         }
@@ -25,6 +23,14 @@ namespace CourseProject
             if (client.IsRegular)
                 return 0.98 * res;
             return res;
+        }
+        public override string ToString()
+        {
+            return $"Товар: {product.name}\n" +
+                $"Клиент: {client.fullname}\n" +
+                $"Количество: {count}\n" +
+                $"Дата заказа: {saleDate}\n" +
+                $"Дата доставки: {deliveryDate}\n";
         }
     }
 }
