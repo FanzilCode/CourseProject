@@ -5,7 +5,7 @@
         public string name { get; set; }
         public double cost { get; set; }
         public string measure { get; set; }
-        double count; // количество товара, которое есть на складе
+        public double count { get; set;  } // количество товара, которое есть на складе
 
         public double Count
         {

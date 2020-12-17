@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+
 namespace CourseProject
 {
     class AlcoStore
@@ -8,11 +10,72 @@ namespace CourseProject
         static List<IAlcohol> products = new List<IAlcohol>();
         static List<Sale> sales = new List<Sale>();
         static List<Client> clients = new List<Client>();
-        static double profit = 0;
+        static void ReadProductsFromFile(string path)
+        {
+            FileInfo file = new FileInfo(path);
+            string line;
+            if (file.Exists)
+            {
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] str = line.Split();
+                        products.Add(new Product(str[0], Convert.ToDouble(str[1]), str[2]));
+                    }
+                }
+            }
+        }
+        static void ReadClientsFromFile(string path)
+        {
+            FileInfo file = new FileInfo(path);
+            string line;
+            if (file.Exists)
+            {
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] str = line.Split();
+                        Client client = new Client(str[0] + str[1] + str[2], str[3], str[4], str[5], Convert.ToDouble(str[6]));
+                        client.Check();
+                        clients.Add(client);
+                    }
+                }
+            }
+        }
+        static void WriteToFileProducts(string path)
+        {
+            FileInfo file = new FileInfo(path);
+            using(StreamWriter sw = new StreamWriter(path))
+            {
+                foreach(var p in products)
+                {
+                    sw.WriteLine($"{p.name} {p.cost} {p.measure}");
+                }
+            }
+        }
+        static void WriteToFileClients(string path)
+        {
+            FileInfo file = new FileInfo(path);
+            string line;
+            if (!file.Exists)
+            {
+                file.Create();
+            }
+            using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
+            {
+                foreach(var c in clients)
+                {
+                    sw.WriteLine(c.ToFileString());
+                }
+            }
+        }
         static void Main(string[] args)
         {
-            
             // TODO: добавить товары через консоль(как администратор) / базу данных
+            ReadProductsFromFile(@"products.txt");
+            ReadClientsFromFile(@"clients.txt");
             int choise = 0;
             while (choise != 3)
             {
@@ -35,6 +98,8 @@ namespace CourseProject
                     }
                 }
             }
+            WriteToFileClients(@"clients.txt");
+            WriteToFileProducts(@"products.txt");
         }
         static int IndexOf(string name, List<Sale> order)
         {
@@ -70,7 +135,7 @@ namespace CourseProject
         static void Admin()
         {
             int choise = 0;
-            while (choise != 5)
+            while (choise != 7)
             {
                 Console.WriteLine("Выберите действие:\n" +
                 "1) Добавить новые товары в ассортимент\n" +
@@ -159,7 +224,7 @@ namespace CourseProject
             string email = Console.ReadLine();
             Console.Write("Адрес вашего проживания: ");
             string address = Console.ReadLine();
-            Client client = new Client(fullname, phoneNumber, email, address);
+            Client client = new Client(fullname, phoneNumber, email, address, 0);
             int index;
             if (!clients.Contains(client))
             {
@@ -258,7 +323,6 @@ namespace CourseProject
                                     o.deliveryDate = o.saleDate + new TimeSpan(7, 0, 0, 0);
                                 }
                                 sales.AddRange(order);
-                                profit += sum;
                                 order.Clear();
                             }
                             else

@@ -4,6 +4,7 @@ namespace CourseProject
 {
     class Sale
     {
+        
         public IAlcohol product { get; set; }
         public Client client { get; set; }
         public double count { get; set; }
