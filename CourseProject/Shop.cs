@@ -20,7 +20,7 @@ namespace CourseProject
                 {
                     while ((line = sr.ReadLine()) != null)
                     {
-                        string[] str = line.Split();
+                        string[] str = line.Split('/');
                         products.Add(new Product(str[0], Convert.ToDouble(str[1]), str[2]));
                     }
                 }
@@ -36,8 +36,8 @@ namespace CourseProject
                 {
                     while ((line = sr.ReadLine()) != null)
                     {
-                        string[] str = line.Split();
-                        Client client = new Client(str[0] + str[1] + str[2], str[3], str[4], str[5], Convert.ToDouble(str[6]));
+                        string[] str = line.Split(',');
+                        Client client = new Client(str[0], str[1], str[2], str[3], Convert.ToDouble(str[4]));
                         client.Check();
                         clients.Add(client);
                     }
@@ -51,7 +51,7 @@ namespace CourseProject
             {
                 foreach(var p in products)
                 {
-                    sw.WriteLine($"{p.name} {p.cost} {p.measure}");
+                    sw.WriteLine($"{p.name}/{p.cost}/{p.measure}");
                 }
             }
         }
@@ -124,14 +124,6 @@ namespace CourseProject
             foreach(var l in list)
                 Console.WriteLine(l);
         }
-        static void ProductsAdd()
-        {
-            products.Add(new Product("Sangria", 178.90, "л", 70));
-            products.Add(new Product("LoveStory", 550, "л", 100));
-            products.Add(new Product("LagoRose", 469, "шт", 150));
-            products.Add(new Product("JackDaniels", 1100, "шт", 50));
-            products.Add(new Product("JimBeam", 1200, "л", 130));
-        }
         static void Admin()
         {
             int choise = 0;
@@ -140,11 +132,10 @@ namespace CourseProject
                 Console.WriteLine("Выберите действие:\n" +
                 "1) Добавить новые товары в ассортимент\n" +
                 "2) Удалить какой-либо товар\n" +
-                "3) Изменить какого-либо товара\n" +
+                "3) Изменить цену какого-либо товара\n" +
                 "4) Показать список всех товаров\n" +
                 "5) Показать список всех клиентов\n" +
-                "6) Показать список всех продаж\n" +
-                "7)) Выход.");
+                "6) Выход.");
                 choise = Convert.ToInt32(Console.ReadLine());
                 switch (choise)
                 {

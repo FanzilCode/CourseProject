@@ -30,7 +30,7 @@
         }
         public string ToFileString()
         {
-            return $"{fullname} {phoneNumber} {email} {address} {sum}";
+            return $"{fullname},{phoneNumber},{email},{address},{sum}";
         }
         public override bool Equals(object obj)
         {
