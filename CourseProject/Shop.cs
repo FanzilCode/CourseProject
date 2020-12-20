@@ -192,11 +192,6 @@ namespace CourseProject
                             PrintCollection(clients);
                             break;
                         }
-                    case 6:
-                        {
-                            PrintCollection(sales);
-                            break;
-                        }
                     default:
                         {
                             break;
